@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchEntries } from './fetch-helpers';
 import EntryList from './components/EntryList';
 import EntryForm from './components/EntryForm';
+import EntryCard from './components/EntryCard';
 
 const defaultEntries = [
   { id: 1, title: 'First day of the bootcamp', date: '2025-01-06', mood: '😊', content: 'Met my cohort today. Everyone seems really kind and eager to learn.' },
@@ -13,14 +14,24 @@ const App = () => {
   const [entries, setEntries] = useState(defaultEntries);
 
   const loadEntries = async () => {
+    const { data, error } = await fetchEntries();
 
+    if (error) {
+      console.error('Something went worng', error);
+    }
+    setEntries(data)
   };
+
+
+  useEffect(() => {
+    loadEntries();
+  }, []);
 
   return (
     <main>
       <h1>My Journal</h1>
       <EntryForm />
-      <EntryList />
+      <EntryList entries={entries}/>
     </main>
   );
 };
