@@ -3,7 +3,7 @@
 export const fetchEntries = async () => {
   // TODO 2
   try {
-    const response = await fetch('/api/entires')
+    const response = await fetch('/api/entries')
     const data = await response.json();
     return { data, error: null};
   } catch (error) {
@@ -17,9 +17,9 @@ export const fetchEntries = async () => {
 export const createEntry = async (entryData) => {
   // TODO 3
   try {
-    const response = await fetch('/api/entires', {
+    const response = await fetch('/api/entries', {
       method: 'POST',
-      headers: { 'Content-Type': 'appplication/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(entryData),
     });
 
@@ -36,7 +36,7 @@ export const createEntry = async (entryData) => {
 export const deleteEntry = async (id) => {
   // TODO 4
   try {
-    const response = await fetch('/api/entries/${id}', {
+    const response = await fetch(`/api/entries/${id}`, {
       method: 'DELETE',
     });
     const data = await response.json()

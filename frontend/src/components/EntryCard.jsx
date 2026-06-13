@@ -1,8 +1,10 @@
 import { deleteEntry } from '../fetch-helpers';
 
-const EntryCard = ({ title, data, mood, content }) => {
+const EntryCard = ({ id, title, date, mood, content, loadEntries }) => {
   const handleDelete = async () => {
-
+    const { error } = await deleteEntry(id);
+    if (error) return console.error(error);
+    loadEntries();
   };
 
   return (
@@ -11,7 +13,7 @@ const EntryCard = ({ title, data, mood, content }) => {
         <span className="entry-card-title">{title}</span>
         <span className="entry-card-mood">{mood}</span>
       </div>
-      <p className="entry-card-meta">{data}</p>
+      <p className="entry-card-meta">{date}</p>
       <p className="entry-card-content">{content}</p>
       <div className="entry-card-controls">
         <button onClick={handleDelete}>Delete</button>

@@ -9,7 +9,7 @@ const EntryForm = ({ onEntrySaved }) => {
 
     const entryData = {
       title: form.elements.title.value,
-      data: form.elements.data.vlaue,
+      date: form.elements.date.value,
       mood: form.elements.mood.value,
       content: form.elements.content.value,
     };
