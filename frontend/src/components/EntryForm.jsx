@@ -2,10 +2,26 @@ import { createEntry } from '../fetch-helpers';
 
 const MOODS = ['😢', '😠', '😐', '😊', '😂'];
 
-const EntryForm = () => {
+const EntryForm = ({ onEntrySaved }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
+
+    const entryData = {
+      title: form.elements.title.value,
+      date: form.elements.date.value,
+      mood: form.elements.mood.value,
+      content: form.elements.content.value,
+    };
+
+    const { data, error } = await createEntry(entryData);
+
+    if (error) {
+      console.error ('something went wrong', error);
+      return;
+    }
+
+    onEntrySaved();
     form.reset();
   };
 

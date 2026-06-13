@@ -13,14 +13,25 @@ const App = () => {
   const [entries, setEntries] = useState(defaultEntries);
 
   const loadEntries = async () => {
+    const { data, error } = await fetchEntries();
 
+    if (error) {
+      console.error('Something went wrong', error);
+      return;
+    }
+    setEntries(data)
   };
+
+
+  useEffect(() => {
+    loadEntries();
+  }, []);
 
   return (
     <main>
       <h1>My Journal</h1>
-      <EntryForm />
-      <EntryList />
+      <EntryForm onEntrySaved={loadEntries} />
+      <EntryList entries={entries} loadEntries={loadEntries} />
     </main>
   );
 };
